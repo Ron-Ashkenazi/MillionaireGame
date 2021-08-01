@@ -13,7 +13,6 @@ root.configure(background="black")
 
 # Randomize The Questions
 
-random.shuffle(questions)
 d = 0
 while d < 15:
     rando = [questions[d].A1, questions[d].A2, questions[d].A3, questions[d].A4]
@@ -27,7 +26,9 @@ while d < 15:
 
 questions.append(ques16)
 global value
+global value2
 value = "a"
+value2 = "b"
 global i
 i = 0
 q1 = PhotoImage(file="Picture1.png")
@@ -50,6 +51,7 @@ q16 = PhotoImage(file="Picture15.png")
 MP = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15, q16]
 
 P_Answers = ["It might be ", "I think it's ", "Maybe ", "Definitely ", "Try ", "I would go for " ]
+crowd_Answers = ["We recommend ", "Our answer is ", "Would go for ", "No clue. Try ", "The most picked is "]
 
 QQ = StringVar()
 AA1 = StringVar()
@@ -82,6 +84,35 @@ ABC1b.grid(row=1, column=0)
 ABC1c = Frame(ABC1, bg="black", bd=20, width=900, height=200)
 ABC1c.grid(row=2, column=0)
 
+# function that returns the right answer
+def rightAnswer(A1, A2, A3, A4):
+    if A1 == True:
+        return 1
+    if A2 == True:
+        return 2
+    if A3 == True:
+        return 3
+    if A4 == True:
+        return 4
+
+# function that returns random answer for the phone help
+def randoAns(num):
+    if num == 1:
+        numbers = [2, 3, 4]
+        val = random.choice(numbers)
+        return val
+    if num == 2:
+        numbers = [1, 3, 4]
+        val = random.choice(numbers)
+        return val
+    if num == 3:
+        numbers = [1, 2, 4]
+        val = random.choice(numbers)
+        return val
+    if num == 4:
+        numbers = [1, 2, 3]
+        val = random.choice(numbers)
+        return val
 
 # Change Images
 def starting():
@@ -99,6 +130,7 @@ def starting():
     AAB3 = (questions[i].A3[1])
     AAB4 = (questions[i].A4[1])
 
+
 def change50_50(A1, A2, A3, A4):
     global i
     canvas = Canvas(ABC1a, bg="black", width=180, height=70)
@@ -107,8 +139,9 @@ def change50_50(A1, A2, A3, A4):
     image1 = PhotoImage(file="50X.png")
     canvas.create_image(90, 35, image=image1)
     canvas.image = image1
-    if A1 == True:
-        numbers = [2,3,4]
+    RightAnswer = rightAnswer(A1, A2, A3, A4)
+    if RightAnswer == 1:
+        numbers = [2, 3, 4]
         value = random.choice(numbers)
         if value == 2:
             AA3.set("")
@@ -119,7 +152,7 @@ def change50_50(A1, A2, A3, A4):
         if value == 4:
             AA2.set("")
             AA3.set("")
-    if A2 == True:
+    if RightAnswer == 2:
         numbers = [1, 3, 4]
         value = random.choice(numbers)
         if value == 1:
@@ -131,7 +164,7 @@ def change50_50(A1, A2, A3, A4):
         if value == 4:
             AA1.set("")
             AA3.set("")
-    if A3 == True:
+    if RightAnswer == 3:
         numbers = [1, 2, 4]
         value = random.choice(numbers)
         if value == 1:
@@ -143,7 +176,7 @@ def change50_50(A1, A2, A3, A4):
         if value == 4:
             AA1.set("")
             AA2.set("")
-    if A4 == True:
+    if RightAnswer == 4:
         numbers = [1, 2, 3]
         value = random.choice(numbers)
         if value == 1:
@@ -158,15 +191,25 @@ def change50_50(A1, A2, A3, A4):
 
 
 def change_people():
+    global value2
+    global lblPeople
     canvas = Canvas(ABC1a, bg="black", width=180, height=70)
     canvas.grid(row=0, column=1)
     canvas.delete("all")
     image1 = PhotoImage(file="PeopleX.png")
     canvas.create_image(90, 35, image=image1)
     canvas.image = image1
+    answers = [questions[i].A1[0], questions[i].A2[0], questions[i].A3[0], questions[i].A4[0]]
+    value2 = random.choice(crowd_Answers) + random.choice(answers)
+    lblPeople = Label(ABC1b, font=("ariel", 17, "bold"), text=value2, bg="black", fg="white"
+                     , bd=0, justify=CENTER)
+    lblPeople.grid(row=1, column=0, pady=0, sticky=W)
 
 
-def change_phone():
+def change_phone(A1, A2, A3, A4):
+    global i
+    global value
+    global lblPhone
     canvas = Canvas(ABC1a, bg="black", width=180, height=70)
     canvas.grid(row=0, column=2)
     canvas.delete("all")
@@ -174,12 +217,101 @@ def change_phone():
     canvas.create_image(90, 35, image=image1)
     canvas.image = image1
     answers = [questions[i].A1[0], questions[i].A2[0], questions[i].A3[0], questions[i].A4[0]]
-    global value
-    value = random.choice(P_Answers) + random.choice(answers)
-    global lblPhone
-    lblPhone = Label(ABC1b, font=("ariel", 17, "bold"), text=value, bg="black", fg="white"
+    RightAnswer = rightAnswer(A1, A2, A3, A4)
+    if i >= 0 and i <=4:
+        value = random.choice(P_Answers) + answers[RightAnswer-1]
+        lblPhone = Label(ABC1b, font=("ariel", 17, "bold"), text=value, bg="black", fg="white"
                          , bd=0, justify=CENTER)
-    lblPhone.grid(row=1, column=0, pady=0, sticky=W)
+        lblPhone.grid(row=1, column=0, pady=0, sticky=W)
+    elif i >= 5 and i <=9:
+        if RightAnswer == 1:
+            val = randoAns(1)
+            if val == 2:
+                newAnswers = [questions[i].A1[0], questions[i].A2[0]]
+                value = random.choice(P_Answers) + random.choice(newAnswers)
+                lblPhone = Label(ABC1b, font=("ariel", 17, "bold"), text=value, bg="black", fg="white"
+                                 , bd=0, justify=CENTER)
+                lblPhone.grid(row=1, column=0, pady=0, sticky=W)
+            if val == 3:
+                newAnswers = [questions[i].A1[0], questions[i].A3[0]]
+                value = random.choice(P_Answers) + random.choice(newAnswers)
+                lblPhone = Label(ABC1b, font=("ariel", 17, "bold"), text=value, bg="black", fg="white"
+                                 , bd=0, justify=CENTER)
+                lblPhone.grid(row=1, column=0, pady=0, sticky=W)
+            if val == 4:
+                newAnswers = [questions[i].A1[0], questions[i].A4[0]]
+                value = random.choice(P_Answers) + random.choice(newAnswers)
+                lblPhone = Label(ABC1b, font=("ariel", 17, "bold"), text=value, bg="black", fg="white"
+                                 , bd=0, justify=CENTER)
+                lblPhone.grid(row=1, column=0, pady=0, sticky=W)
+
+        if RightAnswer == 2:
+            val = randoAns(2)
+            if val == 1:
+                newAnswers = [questions[i].A2[0], questions[i].A1[0]]
+                value = random.choice(P_Answers) + random.choice(newAnswers)
+                lblPhone = Label(ABC1b, font=("ariel", 17, "bold"), text=value, bg="black", fg="white"
+                                 , bd=0, justify=CENTER)
+                lblPhone.grid(row=1, column=0, pady=0, sticky=W)
+            if val == 3:
+                newAnswers = [questions[i].A2[0], questions[i].A3[0]]
+                value = random.choice(P_Answers) + random.choice(newAnswers)
+                lblPhone = Label(ABC1b, font=("ariel", 17, "bold"), text=value, bg="black", fg="white"
+                                 , bd=0, justify=CENTER)
+                lblPhone.grid(row=1, column=0, pady=0, sticky=W)
+            if val == 4:
+                newAnswers = [questions[i].A2[0], questions[i].A4[0]]
+                value = random.choice(P_Answers) + random.choice(newAnswers)
+                lblPhone = Label(ABC1b, font=("ariel", 17, "bold"), text=value, bg="black", fg="white"
+                                 , bd=0, justify=CENTER)
+                lblPhone.grid(row=1, column=0, pady=0, sticky=W)
+
+        if RightAnswer == 3:
+            val = randoAns(3)
+            if val == 1:
+                newAnswers = [questions[i].A3[0], questions[i].A1[0]]
+                value = random.choice(P_Answers) + random.choice(newAnswers)
+                lblPhone = Label(ABC1b, font=("ariel", 17, "bold"), text=value, bg="black", fg="white"
+                                 , bd=0, justify=CENTER)
+                lblPhone.grid(row=1, column=0, pady=0, sticky=W)
+            if val == 2:
+                newAnswers = [questions[i].A3[0], questions[i].A2[0]]
+                value = random.choice(P_Answers) + random.choice(newAnswers)
+                lblPhone = Label(ABC1b, font=("ariel", 17, "bold"), text=value, bg="black", fg="white"
+                                 , bd=0, justify=CENTER)
+                lblPhone.grid(row=1, column=0, pady=0, sticky=W)
+            if val == 4:
+                newAnswers = [questions[i].A3[0], questions[i].A4[0]]
+                value = random.choice(P_Answers) + random.choice(newAnswers)
+                lblPhone = Label(ABC1b, font=("ariel", 17, "bold"), text=value, bg="black", fg="white"
+                                 , bd=0, justify=CENTER)
+                lblPhone.grid(row=1, column=0, pady=0, sticky=W)
+
+        if RightAnswer == 4:
+            val = randoAns(4)
+            if val == 1:
+                newAnswers = [questions[i].A4[0], questions[i].A1[0]]
+                value = random.choice(P_Answers) + random.choice(newAnswers)
+                lblPhone = Label(ABC1b, font=("ariel", 17, "bold"), text=value, bg="black", fg="white"
+                                 , bd=0, justify=CENTER)
+                lblPhone.grid(row=1, column=0, pady=0, sticky=W)
+            if val == 2:
+                newAnswers = [questions[i].A4[0], questions[i].A2[0]]
+                value = random.choice(P_Answers) + random.choice(newAnswers)
+                lblPhone = Label(ABC1b, font=("ariel", 17, "bold"), text=value, bg="black", fg="white"
+                                 , bd=0, justify=CENTER)
+                lblPhone.grid(row=1, column=0, pady=0, sticky=W)
+            if val == 3:
+                newAnswers = [questions[i].A4[0], questions[i].A3[0]]
+                value = random.choice(P_Answers) + random.choice(newAnswers)
+                lblPhone = Label(ABC1b, font=("ariel", 17, "bold"), text=value, bg="black", fg="white"
+                                 , bd=0, justify=CENTER)
+                lblPhone.grid(row=1, column=0, pady=0, sticky=W)
+    else:
+        value = random.choice(P_Answers) + random.choice(answers)
+        lblPhone = Label(ABC1b, font=("ariel", 17, "bold"), text=value, bg="black", fg="white"
+                         , bd=0, justify=CENTER)
+        lblPhone.grid(row=1, column=0, pady=0, sticky=W)
 
 
 def pick_answer(b):
@@ -190,6 +322,8 @@ def pick_answer(b):
     global i
     if value != "":
         lblPhone.destroy()
+    if value2 != "":
+        lblPeople.destroy()
 
     if b == True:
         i += 1
@@ -225,12 +359,14 @@ Logo50_50 = Button(ABC1a, image=Image50_50, bg="black", width=180, height=70,
                    command=lambda:change50_50(AAB1,AAB2,AAB3,AAB4))
 Logo50_50.grid(row=0, column=0)
 
-ImagePepole = PhotoImage(file='People.png')
-LogoPepole = Button(ABC1a, image=ImagePepole, bg="black", width=180, height=70, command=change_people)
-LogoPepole.grid(row=0, column=1)
+ImagePeople = PhotoImage(file='People.png')
+LogoPeople = Button(ABC1a, image=ImagePeople, bg="black", width=180, height=70, command=change_people)
+LogoPeople.grid(row=0, column=1)
+lblPeople = Label(ABC1b, font=("ariel", 17, "bold"), text=value, bg="black", fg="white"
+                         , bd=0, justify=CENTER)
 
 ImagePhone = PhotoImage(file='Phone.png')
-LogoPhone = Button(ABC1a, image=ImagePhone, bg="black", width=180, height=70, command=change_phone)
+LogoPhone = Button(ABC1a, image=ImagePhone, bg="black", width=180, height=70, command=lambda:change_phone(AAB1,AAB2,AAB3,AAB4))
 LogoPhone.grid(row=0, column=2)
 lblPhone = Label(ABC1b, font=("ariel", 17, "bold"), text=value, bg="black", fg="white"
                          , bd=0, justify=CENTER)
