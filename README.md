@@ -1,8 +1,11 @@
 # MillionaireGame
-<img width="949" alt="image1" src="https://user-images.githubusercontent.com/68912338/124383235-12b59680-dcd4-11eb-9151-ae8ffcb6fa0d.png">
 
-<img width="919" alt="image2" src="https://user-images.githubusercontent.com/68912338/124383252-2fea6500-dcd4-11eb-8721-313b1edec186.png">
+<img width="955" alt="photo1" src="https://user-images.githubusercontent.com/68912338/127775513-6b66632a-9e8e-45ac-a7ff-0cd1ea0cef81.png">
 
-<img width="945" alt="image3" src="https://user-images.githubusercontent.com/68912338/124383264-41cc0800-dcd4-11eb-89f7-e53e74af236d.png">
+<img width="951" alt="photo2" src="https://user-images.githubusercontent.com/68912338/127775517-e763959e-4d42-47c1-bfd0-4306db6091f2.png">
 
-<img width="946" alt="image4" src="https://user-images.githubusercontent.com/68912338/124383277-4ee8f700-dcd4-11eb-9527-f42a2a38bc02.png">
+<img width="942" alt="photo3" src="https://user-images.githubusercontent.com/68912338/127775524-a82b5361-0581-4847-9589-d688a054b194.png">
+
+<img width="952" alt="photo4" src="https://user-images.githubusercontent.com/68912338/127775526-32f3fbdc-06e3-415f-bfb1-b3ab31b8fff3.png">
+
+<img width="945" alt="photo5" src="https://user-images.githubusercontent.com/68912338/127775527-dcaf24ad-4619-4d79-8683-dd8e8b4611ee.png">
