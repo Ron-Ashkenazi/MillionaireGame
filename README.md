@@ -1,5 +1,7 @@
 # MillionaireGame
 
+<p>The classic game of "Who Wants To Be A Millionare?" created with Python.</p>
+
 <img width="955" alt="photo1" src="https://user-images.githubusercontent.com/68912338/127775513-6b66632a-9e8e-45ac-a7ff-0cd1ea0cef81.png">
 
 <img width="951" alt="photo2" src="https://user-images.githubusercontent.com/68912338/127775517-e763959e-4d42-47c1-bfd0-4306db6091f2.png">
